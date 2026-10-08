@@ -370,8 +370,8 @@
     return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Vineyard Barcelona//Luciano Manga//PT', 'BEGIN:VEVENT',
       'UID:manga-' + t.code + '@vineyard-bcn', 'DTSTAMP:20261008T000000Z',
       'DTSTART:20270103T160000Z', 'DTEND:20270103T180000Z',
-      'SUMMARY:Luciano Manga em Barcelona', 'LOCATION:Vineyard Church Barcelona',
-      'DESCRIPTION:Palavra e comunhão com Luciano Manga. Ingresso ' + t.code + ' – ' + ticketUrl(t.code),
+      'SUMMARY:Música\\, Palavra e uma vida em comunhão', 'LOCATION:Vineyard Church Barcelona',
+      'DESCRIPTION:Encontro com Luciano Manga (ex-vocalista da Oficina G3). Ingresso ' + t.code + ' – ' + ticketUrl(t.code),
       'BEGIN:VALARM', 'TRIGGER:-PT3H', 'ACTION:DISPLAY', 'DESCRIPTION:Luciano Manga hoje às 17h', 'END:VALARM',
       'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
   }
