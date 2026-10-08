@@ -29,6 +29,7 @@
   header.top .v{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--ink);color:var(--bg);font-family:Anton;font-size:20px;letter-spacing:0}
 
   .hero{display:grid;grid-template-columns:1fr;gap:28px;align-items:center;padding:8px 0 40px}
+  @media(max-width:859px){.hero .poster{order:2;max-width:480px;margin:0 auto}}
   @media(min-width:860px){.hero{grid-template-columns:minmax(0,420px) 1fr;gap:48px}}
   .poster{width:100%;border-radius:var(--radius);box-shadow:0 30px 60px -20px #000c,0 0 0 1px #ffffff14;display:block}
   .quote{font-family:Caveat;font-size:28px;line-height:1.1;color:#e9eef6;margin:0 0 6px;transform:rotate(-2deg);display:inline-block}
@@ -134,7 +135,7 @@
         <h1><span class="a">LUCIANO</span><span class="b">MANGA</span></h1>
         <p class="roles">Ex-vocalista da Oficina G3<span>•</span>Pastor<span>•</span>Escritor</p>
         <div class="facts">
-          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Sáb, 3 de janeiro</div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Dom, 3 de janeiro</div>
           <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>17h às 19h</div>
           <a class="fact alt" href="https://www.google.com/maps/search/?api=1&query=Vineyard+Church+Barcelona" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Vineyard Church Barcelona</a>
         </div>
@@ -211,7 +212,7 @@
         <div>
           <div class="who" id="tName"></div>
           <div class="meta" id="tSeats"></div>
-          <div class="meta">Sáb, 3 de janeiro · 17h às 19h</div>
+          <div class="meta">Dom, 3 de janeiro · 17h às 19h</div>
           <div style="margin-top:10px" id="tBadge"></div>
         </div>
         <div class="qr" id="tQr" aria-label="QR code do ingresso"></div>
@@ -346,8 +347,8 @@
     let [cls, label] = badges[t.status] || ['', t.status];
     if (t.checked_in) { cls = 'in'; label = 'Check-in feito ✓'; }
     $('tBadge').innerHTML = `<span class="badge ${cls}">${label}</span>`;
-    const qr = qrcode(0, 'M'); qr.addData(ticketUrl(t.code)); qr.make();
-    $('tQr').innerHTML = qr.createSvgTag({ margin: 0, scalable: true });
+    if (window.qrcode) { const qr = qrcode(0, 'M'); qr.addData(ticketUrl(t.code)); qr.make(); $('tQr').innerHTML = qr.createSvgTag({ margin: 0, scalable: true }); }
+    $('tQr').classList.toggle('hidden', !window.qrcode);
     $('tQr').style.opacity = t.status === 'confirmed' ? 1 : .25;
     $('tNote').textContent = {
       confirmed: 'Faça uma captura de tela ou salve este link. Mostre o QR na entrada.',

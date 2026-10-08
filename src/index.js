@@ -89,11 +89,15 @@ async function route(req) {
 
 export default {
   async fetch(req) {
+    let res;
     try {
-      return await route(req);
+      res = await route(req);
     } catch (e) {
       console.error(e);
-      return json({ http: 500, error: 'Erro no servidor. Tente de novo em instantes.' });
+      res = json({ http: 500, error: 'Erro no servidor. Tente de novo em instantes.' });
     }
+    const { pathname } = new URL(req.url);
+    if (pathname.startsWith('/api/')) console.log(`${req.method} ${pathname.replace(/\/t(icket)?\/[^/]+/, '/ticket/:code')} -> ${res.status}`);
+    return res;
   },
 };

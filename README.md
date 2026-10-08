@@ -1,7 +1,7 @@
 # Luciano Manga em Barcelona · Inscrições
 
 App de inscrição gratuita com controle de aforo para o encontro com **Luciano Manga**
-(ex-vocalista da Oficina G3) na **Vineyard Church Barcelona** — sábado, 3 de janeiro, 17h às 19h.
+(ex-vocalista da Oficina G3) na **Vineyard Church Barcelona** — domingo, 3 de janeiro (2027), 17h às 19h.
 
 ## O que faz
 
