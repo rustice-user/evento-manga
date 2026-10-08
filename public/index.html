@@ -223,7 +223,8 @@
     </div>
     <p class="note" id="tNote">Faça uma captura de tela ou salve este link. Mostre o QR na entrada.</p>
     <div class="tactions no-print">
-      <a class="btn primary" id="icsBtn" href="#" download="luciano-manga-barcelona.ics">Adicionar ao calendário</a>
+      <button class="btn primary" id="dlBtn" type="button">Baixar entrada (imagem)</button>
+      <a class="btn ghost" id="icsBtn" href="#" download="luciano-manga-barcelona.ics">Adicionar ao calendário</a>
       <a class="btn ghost" id="mapBtn" href="https://www.google.com/maps/search/?api=1&query=Vineyard+Church+Barcelona" target="_blank" rel="noopener">Como chegar</a>
       <a class="btn ghost" id="shareTicket" href="#">Convidar amigos</a>
       <button class="btn ghost" id="printBtn" type="button">Imprimir</button>
@@ -364,6 +365,7 @@
     };
     const m = $('ticketMsg'); m.textContent = msg || ''; m.classList.toggle('show', !!msg);
     $('icsBtn').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics(t));
+    $('dlBtn').onclick = () => downloadTicket(t);
   }
 
   function ics(t) {
@@ -377,6 +379,54 @@
   }
 
   $('printBtn').onclick = () => window.print();
+
+  // Gera um PNG da entrada (1080x1600) no próprio navegador e baixa.
+  async function downloadTicket(t) {
+    try { await document.fonts.ready; } catch {}
+    const W = 1080, H = 1600, c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const g = c.getContext('2d');
+    const rr = (x, y, w, h, r) => { g.beginPath(); g.roundRect(x, y, w, h, r); };
+    // fundo
+    g.fillStyle = '#0a1626'; g.fillRect(0, 0, W, H);
+    // cabeçalho
+    g.fillStyle = '#a9b8cc'; g.font = '700 30px Inter, sans-serif'; g.textAlign = 'center';
+    g.fillText('VINEYARD CHURCH BARCELONA', W / 2, 110);
+    g.fillStyle = '#f4f7fb'; g.font = '120px Anton, Impact, sans-serif'; g.fillText('LUCIANO', W / 2, 250);
+    g.fillStyle = '#ffd21f'; g.font = '120px "Permanent Marker", Anton, sans-serif'; g.fillText('MANGA', W / 2, 380);
+    g.fillStyle = '#e9eef6'; g.font = '600 44px Caveat, cursive'; g.fillText('“Música, Palavra e uma vida em comunhão.”', W / 2, 460);
+    // cartão
+    const x = 70, y = 520, w = W - 140, h = 960;
+    g.fillStyle = '#fbf8ec'; rr(x, y, w, h, 36); g.fill();
+    g.save(); rr(x, y, w, h, 36); g.clip(); g.fillStyle = '#ffd21f'; g.fillRect(x, y, w, 14); g.restore();
+    g.textAlign = 'left'; g.fillStyle = '#0a1626';
+    g.font = '700 54px Inter, sans-serif'; g.fillText(t.name.length > 28 ? t.name.slice(0, 27) + '…' : t.name, x + 60, y + 120);
+    g.fillStyle = '#3a4a5e'; g.font = '500 38px Inter, sans-serif';
+    g.fillText((t.seats === 1 ? '1 lugar' : t.seats + ' lugares') + '  ·  Domingo, 3 de janeiro', x + 60, y + 185);
+    g.fillText('17h às 19h  ·  Vineyard Church Barcelona', x + 60, y + 240);
+    const label = { confirmed: 'CONFIRMADO', waitlist: 'LISTA DE ESPERA', cancelled: 'CANCELADO' }[t.status] || '';
+    g.fillStyle = t.status === 'confirmed' ? '#0d7a48' : '#a12a2a'; g.font = '800 32px Inter, sans-serif'; g.fillText(label, x + 60, y + 305);
+    // QR
+    const qs = 420, qx = (W - qs) / 2, qy = y + 350;
+    if (window.qrcode && t.status === 'confirmed') {
+      const q = qrcode(0, 'M'); q.addData(ticketUrl(t.code)); q.make();
+      const n = q.getModuleCount(), cell = qs / n;
+      g.fillStyle = '#fff'; rr(qx - 24, qy - 24, qs + 48, qs + 48, 20); g.fill();
+      g.fillStyle = '#0a1626';
+      for (let r = 0; r < n; r++) for (let col = 0; col < n; col++) if (q.isDark(r, col)) g.fillRect(qx + col * cell, qy + r * cell, Math.ceil(cell), Math.ceil(cell));
+    }
+    // código
+    g.textAlign = 'center'; g.fillStyle = '#3a4a5e'; g.font = '700 28px Inter, sans-serif'; g.fillText('CÓDIGO', W / 2, y + h - 110);
+    g.fillStyle = '#0a1626'; g.font = '700 72px Menlo, Consolas, monospace'; g.fillText(t.code.split('').join(' '), W / 2, y + h - 35);
+    // rodapé
+    g.fillStyle = '#f4f7fb'; g.font = '56px Anton, Impact, sans-serif'; g.fillText('PALAVRA  •  COMUNHÃO', W / 2, H - 50);
+    c.toBlob((blob) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = `entrada-luciano-manga-${t.code}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    }, 'image/png');
+  }
   $('backHome').onclick = (e) => { e.preventDefault(); history.pushState({}, '', base); route(); };
 
   async function route() {

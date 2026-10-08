@@ -113,7 +113,7 @@
     <h2>Inscrições</h2>
     <div class="tools">
       <input id="q" placeholder="Buscar por nome, e-mail, telefone ou código">
-      <select id="filter" style="width:auto"><option value="">Todas</option><option value="confirmed">Confirmadas</option><option value="in">Com check-in</option><option value="pending">Confirmadas sem check-in</option><option value="waitlist">Lista de espera</option><option value="cancelled">Canceladas</option></select>
+      <select id="filter" style="width:auto"><option value="">Todas</option><option value="confirmed">Confirmadas</option><option value="in">Com check-in</option><option value="pending">Confirmadas sem check-in</option><option value="waitlist">Lista de espera</option><option value="cancelled">Canceladas</option><option value="dup">Possíveis duplicados</option></select>
       <button class="btn" id="csv">Exportar CSV</button>
     </div>
     <div class="tablewrap"><table><thead><tr><th>Código</th><th>Nome</th><th>Lug.</th><th>Contato</th><th>Status</th><th>Inscrito em</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table></div>
@@ -170,13 +170,19 @@
 
   function renderRows() {
     const q = $('q').value.trim().toLowerCase(), f = $('filter').value;
+    // Mesmo nome (sem acentos/maiúsculas) em mais de uma inscrição ativa = possível duplicado.
+    const nk = (n) => String(n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const counts = {};
+    regs.filter((r) => r.status !== 'cancelled').forEach((r) => { counts[nk(r.name)] = (counts[nk(r.name)] || 0) + 1; });
     const list = regs.filter((r) => {
       if (f === 'in' && !r.checked_in_at) return false;
       if (f === 'pending' && (r.status !== 'confirmed' || r.checked_in_at)) return false;
       if (['confirmed', 'waitlist', 'cancelled'].includes(f) && r.status !== f) return false;
+      if (f === 'dup' && !(r.status !== 'cancelled' && counts[nk(r.name)] > 1)) return false;
       return !q || [r.name, r.email, r.phone, r.code].some((v) => String(v || '').toLowerCase().includes(q));
     });
     $('rows').innerHTML = list.map((r) => {
+      const dup = r.status !== 'cancelled' && counts[nk(r.name)] > 1 ? ' <span class="pill waitlist" title="Outra inscrição ativa com o mesmo nome">possível duplicado</span>' : '';
       const wa = waLink(r.phone);
       const status = r.checked_in_at ? `<span class="pill in">Entrou ${fmt(r.checked_in_at).split(' ').pop()}</span>` : `<span class="pill ${r.status}">${{ confirmed: 'Confirmado', waitlist: 'Espera', cancelled: 'Cancelado' }[r.status]}</span>`;
       const acts = [];
@@ -185,7 +191,7 @@
       if (r.status === 'waitlist') acts.push(`<button class="btn sm primary" data-a="promote" data-c="${r.code}">Confirmar</button>`);
       if (r.status !== 'cancelled') acts.push(`<button class="btn sm" data-a="cancel" data-c="${r.code}">Cancelar</button>`);
       else acts.push(`<button class="btn sm" data-a="restore" data-c="${r.code}">Restaurar</button>`);
-      return `<tr class="${r.status}"><td class="code">${esc(r.code)}</td><td><b>${esc(r.name)}</b>${r.how_heard ? `<div class="muted" style="font-size:12px">${esc(r.how_heard)}</div>` : ''}</td><td>${r.seats}</td>
+      return `<tr class="${r.status}"><td class="code">${esc(r.code)}</td><td><b>${esc(r.name)}</b>${dup}${r.how_heard ? `<div class="muted" style="font-size:12px">${esc(r.how_heard)}</div>` : ''}</td><td>${r.seats}</td>
         <td><a href="mailto:${esc(r.email)}">${esc(r.email)}</a>${r.phone ? `<div>${wa ? `<a href="${wa}" target="_blank" rel="noopener">${esc(r.phone)}</a>` : esc(r.phone)}</div>` : ''}</td>
         <td>${status}</td><td class="muted">${fmt(r.created_at)}</td><td><div class="acts">${acts.join('')}</div></td></tr>`;
     }).join('') || `<tr><td colspan="7" class="muted" style="text-align:center;padding:24px">Nenhuma inscrição.</td></tr>`;

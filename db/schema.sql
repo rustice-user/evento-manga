@@ -49,6 +49,11 @@ LANGUAGE sql IMMUTABLE AS $$ SELECT left(regexp_replace(upper(coalesce(c, '')), 
 CREATE OR REPLACE FUNCTION evento_manga.clean(v text, n int) RETURNS text
 LANGUAGE sql IMMUTABLE AS $$ SELECT left(btrim(regexp_replace(coalesce(v, ''), '\s+', ' ', 'g')), n) $$;
 
+CREATE OR REPLACE FUNCTION evento_manga.phone_key(p text) RETURNS text
+LANGUAGE sql IMMUTABLE AS $$
+  SELECT CASE WHEN length(d) >= 8 THEN right(d, 9) END FROM (SELECT regexp_replace(coalesce(p, ''), '\D', '', 'g') AS d) x
+$$;
+
 -- ---------- público ----------
 CREATE OR REPLACE FUNCTION evento_manga.status() RETURNS jsonb
 LANGUAGE sql STABLE AS $$
@@ -98,6 +103,14 @@ BEGIN
 
   SELECT * INTO r FROM evento_manga.registrations WHERE lower(email) = v_email AND status <> 'cancelled';
   IF FOUND THEN RETURN jsonb_build_object('already', true, 'ticket', evento_manga.public_ticket(r)); END IF;
+
+  -- Mesmo WhatsApp com outro e-mail: bloqueia (compara os últimos 9 dígitos, ignora +34/+55, espaços etc.).
+  IF evento_manga.phone_key(v_phone) IS NOT NULL AND EXISTS (
+       SELECT 1 FROM evento_manga.registrations
+        WHERE status <> 'cancelled' AND evento_manga.phone_key(phone) = evento_manga.phone_key(v_phone)) THEN
+    RETURN jsonb_build_object('http', 409, 'error',
+      'Este WhatsApp já tem uma inscrição. Se for você, use "Recuperar meu ingresso" com o e-mail usado. Para trazer mais pessoas, aumente a quantidade de lugares na mesma inscrição.');
+  END IF;
 
   IF NOT cfg.registrations_open THEN RETURN jsonb_build_object('http', 409, 'error', 'As inscrições estão encerradas.'); END IF;
 
