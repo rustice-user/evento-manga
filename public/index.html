@@ -180,7 +180,7 @@
             <div class="f"><label for="name">Nome completo</label><input id="name" name="name" autocomplete="name" required maxlength="120"></div>
             <div class="row2">
               <div class="f"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160"></div>
-              <div class="f"><label for="phone">WhatsApp <small>(opcional)</small></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="+34 …"></div>
+              <div class="f"><label for="phone">WhatsApp <small>(com código do país)</small></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="+34 600 000 000" required></div>
             </div>
             <div class="f"><label>Quantos lugares? <small>(incluindo você)</small></label><div class="seats" id="seats" role="group" aria-label="Número de lugares"></div></div>
             <div class="f"><label for="how">Como ficou sabendo? <small>(opcional)</small></label>
@@ -304,6 +304,7 @@
     };
     if (payload.name.trim().length < 2) return showErr($('formErr'), 'Informe seu nome.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(payload.email.trim())) return showErr($('formErr'), 'Informe um e-mail válido.');
+    if (payload.phone.replace(/\D/g, '').length < 8) return showErr($('formErr'), 'Informe seu WhatsApp com código do país (ex.: +34 600 000 000).');
     if (!payload.consent) return showErr($('formErr'), 'Marque a autorização de uso dos dados para continuar.');
     const btn = $('submitBtn'); btn.disabled = true; const old = btn.textContent; btn.textContent = 'Enviando…';
     const { ok, data } = await api('/register', { method: 'POST', body: JSON.stringify(payload) }).catch(() => ({ ok: false, data: { error: 'Sem conexão. Tente de novo.' } }));

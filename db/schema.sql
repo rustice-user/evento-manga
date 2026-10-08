@@ -89,6 +89,9 @@ BEGIN
   IF coalesce(p->>'website', '') <> '' THEN RETURN jsonb_build_object('http', 400, 'error', 'Pedido inválido.'); END IF;
   IF length(v_name) < 2 THEN RETURN jsonb_build_object('http', 400, 'error', 'Informe seu nome.'); END IF;
   IF v_email !~ '^[^\s@]+@[^\s@]+\.[^\s@]{2,}$' THEN RETURN jsonb_build_object('http', 400, 'error', 'Informe um e-mail válido.'); END IF;
+  IF evento_manga.phone_key(v_phone) IS NULL THEN
+    RETURN jsonb_build_object('http', 400, 'error', 'Informe seu WhatsApp com código do país (ex.: +34 600 000 000).');
+  END IF;
   IF coalesce((p->>'consent')::boolean, false) IS NOT TRUE THEN
     RETURN jsonb_build_object('http', 400, 'error', 'É preciso aceitar o uso dos dados para a inscrição.');
   END IF;
