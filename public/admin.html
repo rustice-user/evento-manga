@@ -200,6 +200,7 @@
     if (a === 'cancel' && !confirm('Cancelar a inscrição ' + c + '?')) return;
     const { ok, data } = await action(c, a);
     if (!ok) alert(data.error || 'Erro');
+    else if (a === 'promote') alert(data.email_sent ? 'Confirmado e e-mail enviado.' : 'Confirmado. (E-mail não enviado — avise a pessoa pelo WhatsApp.)');
     loadAll();
   };
 

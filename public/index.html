@@ -308,7 +308,7 @@
     const { ok, data } = await api('/register', { method: 'POST', body: JSON.stringify(payload) }).catch(() => ({ ok: false, data: { error: 'Sem conexão. Tente de novo.' } }));
     btn.disabled = false; btn.textContent = old;
     if (ok && data.ticket) {
-      openTicket(data.ticket, data.already ? 'Você já estava inscrito(a) com este e-mail — aqui está seu ingresso.' : null);
+      openTicket(data.ticket, data.already ? 'Você já estava inscrito(a) com este e-mail — aqui está seu ingresso.' : data.email_sent ? `Enviamos uma cópia do ingresso para ${payload.email.trim()}. Confira também a caixa de spam.` : null);
       return;
     }
     if (data.full && data.waitlist_enabled) {

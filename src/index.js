@@ -5,6 +5,7 @@
 import { timingSafeEqual } from 'node:crypto';
 import indexHtml from '../public/index.html';
 import adminHtml from '../public/admin.html';
+import { sendTicketEmail } from './email.js';
 
 // APP_DATABASE_URL: usuário restrito ao schema evento_manga.
 const DB_URL = process.env.APP_DATABASE_URL || '';
@@ -69,7 +70,14 @@ async function route(req) {
 
   // ---- API pública ----
   if (m === 'GET' && pathname === '/api/status') return json(await call('status'));
-  if (m === 'POST' && pathname === '/api/register') return json(await call('register', JSON.stringify(await body(req))));
+  if (m === 'POST' && pathname === '/api/register') {
+    const b = await body(req);
+    const r = await call('register', JSON.stringify(b));
+    if (r.http === 201) {
+      r.email_sent = await sendTicketEmail({ email: String(b.email).trim(), ...r.ticket, origin: new URL(req.url).origin });
+    }
+    return json(r);
+  }
   if (m === 'POST' && pathname === '/api/lookup') return json(await call('lookup', JSON.stringify(await body(req))));
   if (m === 'GET' && (p = pathname.match(/^\/api\/ticket\/([^/]+)$/))) return json(await call('ticket', p[1]));
   if (m === 'POST' && (p = pathname.match(/^\/api\/ticket\/([^/]+)\/cancel$/))) return json(await call('cancel', p[1]));
@@ -81,7 +89,12 @@ async function route(req) {
     if (m === 'GET' && pathname === '/api/admin/registrations') return json(await call('admin_list'));
     if (m === 'POST' && pathname === '/api/admin/settings') return json(await call('admin_settings', JSON.stringify(await body(req))));
     if (m === 'POST' && (p = pathname.match(/^\/api\/admin\/registrations\/([^/]+)\/([a-z_]+)$/))) {
-      return json(await call('admin_action', decodeURIComponent(p[1]), p[2]));
+      const r = await call('admin_action', decodeURIComponent(p[1]), p[2]);
+      // Quem sai da lista de espera recebe o ingresso confirmado por e-mail.
+      if (p[2] === 'promote' && r.registration) {
+        r.email_sent = await sendTicketEmail({ ...r.registration, origin: new URL(req.url).origin });
+      }
+      return json(r);
     }
   }
   return pathname.startsWith('/api/') ? json({ http: 404, error: 'Não encontrado.' }) : new Response('Não encontrado', { status: 404 });
