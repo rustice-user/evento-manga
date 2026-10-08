@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Painel · Luciano Manga</title>
+<meta name="theme-color" content="#0a1626">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a1626;--card:#13263f;--line:#24405f;--ink:#f4f7fb;--muted:#a9b8cc;--yellow:#ffd21f;--yink:#1a1400;--green:#22c07a;--red:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px 60px}
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;flex-wrap:wrap}
+  h1{font-family:Anton;font-weight:400;font-size:26px;letter-spacing:.03em;margin:0}
+  h1 span{color:var(--yellow)}
+  h2{font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:26px 0 10px}
+  .btn{appearance:none;border:0;cursor:pointer;font:inherit;font-weight:700;border-radius:10px;padding:10px 14px;background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);text-decoration:none;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .btn:hover{box-shadow:inset 0 0 0 1.5px var(--muted)}
+  .btn.primary{background:var(--yellow);color:var(--yink);box-shadow:none}
+  .btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
+  .btn.ok{background:var(--green);color:#03170d;box-shadow:none}
+  input,select{font:inherit;color:var(--ink);background:#0b1a2d;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;width:100%}
+  input:focus{border-color:var(--yellow)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media(min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
+  .stat .n{font-family:Anton;font-size:38px;line-height:1}
+  .stat .l{color:var(--muted);font-size:13px;margin-top:6px}
+  .bar{height:8px;border-radius:9px;background:#0a1626;overflow:hidden;margin-top:10px}
+  .bar i{display:block;height:100%;background:var(--yellow)}
+  .settings{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+  @media(min-width:760px){.settings{grid-template-columns:repeat(4,1fr) auto}}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .tog{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);font-size:14px;padding:10px 0}
+  .tog input{width:20px;height:20px;accent-color:var(--yellow)}
+  .scan{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:760px){.scan{grid-template-columns:1fr 1fr}}
+  .scanbox{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:4/3;display:none}
+  .scanbox.on{display:block}
+  .scanbox video{width:100%;height:100%;object-fit:cover}
+  .scanbox:after{content:"";position:absolute;inset:18%;border:3px solid var(--yellow);border-radius:14px;box-shadow:0 0 0 999px #0006}
+  .result{border-radius:12px;padding:16px;font-size:16px;display:none}
+  .result.show{display:block}
+  .result.good{background:#22c07a22;border:1.5px solid var(--green)}
+  .result.warn{background:#ffd21f22;border:1.5px solid var(--yellow)}
+  .result.bad{background:#ff6b6b22;border:1.5px solid var(--red)}
+  .result .big{font-family:Anton;font-size:30px;line-height:1.1;margin:2px 0 6px}
+  .tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .tools input{flex:1 1 220px;width:auto}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #ffffff0f;vertical-align:middle}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:#0f2036;position:sticky;top:0}
+  tr.cancelled td{opacity:.45}
+  td.code{font-family:ui-monospace,Menlo,monospace;font-weight:700;letter-spacing:.08em}
+  .pill{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px}
+  .pill.confirmed{background:#22c07a2a;color:#7ff0bb}.pill.waitlist{background:#ffd21f2a;color:var(--yellow)}.pill.cancelled{background:#ff6b6b2a;color:#ffb3b3}
+  .pill.in{background:var(--yellow);color:var(--yink)}
+  .acts{display:flex;gap:6px;flex-wrap:wrap}
+  .muted{color:var(--muted)}
+  .login{max-width:380px;margin:12vh auto 0}
+  .err{color:#ffb3b3;margin:10px 0 0;min-height:1em}
+  .hidden{display:none!important}
+  a{color:var(--yellow)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="login" class="login card">
+    <h1>Painel <span>Manga</span></h1>
+    <p class="muted">Acesso da equipe. Digite a chave de acesso.</p>
+    <form id="loginForm"><input id="key" type="password" autocomplete="current-password" placeholder="Chave de acesso"><p class="err" id="loginErr"></p><button class="btn primary" style="width:100%;justify-content:center">Entrar</button></form>
+  </div>
+
+  <div id="app" class="hidden">
+    <header>
+      <h1>Luciano <span>Manga</span> · Painel</h1>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn" href="/" target="_blank">Ver página pública</a>
+        <button class="btn" id="refresh">Atualizar</button>
+        <button class="btn" id="logout">Sair</button>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="card stat"><div class="n" id="sTaken">–</div><div class="l">pessoas confirmadas de <b id="sCap">–</b></div><div class="bar"><i id="sBar"></i></div></div>
+      <div class="card stat"><div class="n" id="sRemain">–</div><div class="l">lugares livres</div></div>
+      <div class="card stat"><div class="n" id="sIn">–</div><div class="l">pessoas já entraram (check-in)</div></div>
+      <div class="card stat"><div class="n" id="sWait">–</div><div class="l">pessoas na lista de espera</div></div>
+    </div>
+
+    <h2>Check-in na porta</h2>
+    <div class="card scan">
+      <div>
+        <form id="manual" style="display:flex;gap:8px"><input id="manualCode" placeholder="Código (ex.: K7P2QX)" autocapitalize="characters" autocomplete="off"><button class="btn primary">Check-in</button></form>
+        <p style="margin:12px 0 0"><button class="btn" id="camBtn" type="button">📷 Escanear QR com a câmera</button></p>
+        <div class="scanbox" id="scanbox" style="margin-top:12px"><video id="video" playsinline muted></video></div>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <h2>Configurações</h2>
+    <form class="card settings" id="settings">
+      <div><label for="cap">Capacidade (aforo)</label><input id="cap" type="number" min="0" inputmode="numeric"></div>
+      <div><label for="maxPer">Máx. lugares por inscrição</label><input id="maxPer" type="number" min="1" max="10" inputmode="numeric"></div>
+      <label class="tog"><input type="checkbox" id="open"> Inscrições abertas</label>
+      <label class="tog"><input type="checkbox" id="wl"> Lista de espera</label>
+      <button class="btn primary">Salvar</button>
+    </form>
+
+    <h2>Inscrições</h2>
+    <div class="tools">
+      <input id="q" placeholder="Buscar por nome, e-mail, telefone ou código">
+      <select id="filter" style="width:auto"><option value="">Todas</option><option value="confirmed">Confirmadas</option><option value="in">Com check-in</option><option value="pending">Confirmadas sem check-in</option><option value="waitlist">Lista de espera</option><option value="cancelled">Canceladas</option></select>
+      <button class="btn" id="csv">Exportar CSV</button>
+    </div>
+    <div class="tablewrap"><table><thead><tr><th>Código</th><th>Nome</th><th>Lug.</th><th>Contato</th><th>Status</th><th>Inscrito em</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table></div>
+    <p class="muted" id="count" style="margin-top:8px"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  let KEY = ''; try { KEY = sessionStorage.getItem('manga_admin') || ''; } catch {}
+  let regs = [];
+
+  async function api(path, opts = {}) {
+    const res = await fetch('/api/admin' + path, { ...opts, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': KEY } });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401) { logout(); throw new Error('unauthorized'); }
+    return { ok: res.ok, status: res.status, data };
+  }
+
+  function logout() { KEY = ''; try { sessionStorage.removeItem('manga_admin'); } catch {} $('app').classList.add('hidden'); $('login').classList.remove('hidden'); stopCam(); }
+  $('logout').onclick = logout;
+
+  $('loginForm').onsubmit = async (e) => {
+    e.preventDefault(); KEY = $('key').value.trim();
+    try { await loadAll(); try { sessionStorage.setItem('manga_admin', KEY); } catch {} }
+    catch { $('loginErr').textContent = 'Chave inválida.'; }
+  };
+
+  async function loadAll() {
+    const [s, r] = await Promise.all([api('/summary'), api('/registrations')]);
+    $('login').classList.add('hidden'); $('app').classList.remove('hidden');
+    const d = s.data;
+    $('sTaken').textContent = d.taken; $('sCap').textContent = d.capacity; $('sRemain').textContent = d.remaining;
+    $('sIn').textContent = d.checked_in; $('sWait').textContent = d.waitlist;
+    $('sBar').style.width = (d.capacity ? Math.min(100, 100 * d.taken / d.capacity) : 0) + '%';
+    if (document.activeElement?.closest('#settings') == null) {
+      $('cap').value = d.capacity; $('maxPer').value = d.max_per_registration; $('open').checked = d.registrations_open; $('wl').checked = d.waitlist_enabled;
+    }
+    regs = r.data.registrations; renderRows();
+  }
+  $('refresh').onclick = () => loadAll();
+
+  $('settings').onsubmit = async (e) => {
+    e.preventDefault();
+    const { ok, data } = await api('/settings', { method: 'POST', body: JSON.stringify({ capacity: $('cap').value, max_per_registration: $('maxPer').value, registrations_open: $('open').checked, waitlist_enabled: $('wl').checked }) });
+    if (!ok) alert(data.error || 'Erro'); loadAll();
+  };
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmt = (d) => d ? new Date(d).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' }) : '';
+  const waLink = (p) => { const n = String(p || '').replace(/[^\d]/g, ''); return n.length >= 8 ? `https://wa.me/${n}` : null; };
+
+  function renderRows() {
+    const q = $('q').value.trim().toLowerCase(), f = $('filter').value;
+    const list = regs.filter((r) => {
+      if (f === 'in' && !r.checked_in_at) return false;
+      if (f === 'pending' && (r.status !== 'confirmed' || r.checked_in_at)) return false;
+      if (['confirmed', 'waitlist', 'cancelled'].includes(f) && r.status !== f) return false;
+      return !q || [r.name, r.email, r.phone, r.code].some((v) => String(v || '').toLowerCase().includes(q));
+    });
+    $('rows').innerHTML = list.map((r) => {
+      const wa = waLink(r.phone);
+      const status = r.checked_in_at ? `<span class="pill in">Entrou ${fmt(r.checked_in_at).split(' ').pop()}</span>` : `<span class="pill ${r.status}">${{ confirmed: 'Confirmado', waitlist: 'Espera', cancelled: 'Cancelado' }[r.status]}</span>`;
+      const acts = [];
+      if (r.status === 'confirmed' && !r.checked_in_at) acts.push(`<button class="btn sm ok" data-a="checkin" data-c="${r.code}">Check-in</button>`);
+      if (r.checked_in_at) acts.push(`<button class="btn sm" data-a="undo_checkin" data-c="${r.code}">Desfazer</button>`);
+      if (r.status === 'waitlist') acts.push(`<button class="btn sm primary" data-a="promote" data-c="${r.code}">Confirmar</button>`);
+      if (r.status !== 'cancelled') acts.push(`<button class="btn sm" data-a="cancel" data-c="${r.code}">Cancelar</button>`);
+      else acts.push(`<button class="btn sm" data-a="restore" data-c="${r.code}">Restaurar</button>`);
+      return `<tr class="${r.status}"><td class="code">${esc(r.code)}</td><td><b>${esc(r.name)}</b>${r.how_heard ? `<div class="muted" style="font-size:12px">${esc(r.how_heard)}</div>` : ''}</td><td>${r.seats}</td>
+        <td><a href="mailto:${esc(r.email)}">${esc(r.email)}</a>${r.phone ? `<div>${wa ? `<a href="${wa}" target="_blank" rel="noopener">${esc(r.phone)}</a>` : esc(r.phone)}</div>` : ''}</td>
+        <td>${status}</td><td class="muted">${fmt(r.created_at)}</td><td><div class="acts">${acts.join('')}</div></td></tr>`;
+    }).join('') || `<tr><td colspan="7" class="muted" style="text-align:center;padding:24px">Nenhuma inscrição.</td></tr>`;
+    const people = list.filter((r) => r.status !== 'cancelled').reduce((a, r) => a + r.seats, 0);
+    $('count').textContent = `${list.length} inscrição(ões) · ${people} pessoa(s)`;
+  }
+  $('q').oninput = renderRows; $('filter').onchange = renderRows;
+
+  $('rows').onclick = async (e) => {
+    const b = e.target.closest('button[data-a]'); if (!b) return;
+    const a = b.dataset.a, c = b.dataset.c;
+    if (a === 'cancel' && !confirm('Cancelar a inscrição ' + c + '?')) return;
+    const { ok, data } = await action(c, a);
+    if (!ok) alert(data.error || 'Erro');
+    loadAll();
+  };
+
+  const action = (code, a) => api(`/registrations/${encodeURIComponent(code)}/${a}`, { method: 'POST' });
+
+  // ---- check-in ----
+  function codeFrom(text) {
+    const m = String(text).match(/\/t\/([A-Za-z0-9]+)/); return (m ? m[1] : text).toUpperCase().replace(/[^A-Z0-9]/g, '');
+  }
+  async function checkin(raw) {
+    const code = codeFrom(raw); if (!code) return;
+    const { ok, data } = await action(code, 'checkin');
+    const r = data.registration, box = $('result');
+    box.className = 'result show ' + (ok && !data.warning ? 'good' : ok ? 'warn' : 'bad');
+    const who = r ? `<div class="big">${esc(r.name)}</div><div>${r.seats} ${r.seats === 1 ? 'lugar' : 'lugares'} · código <b>${esc(r.code)}</b></div>` : '';
+    box.innerHTML = ok && !data.warning ? `✅ Entrada liberada${who}` : ok ? `⚠️ ${esc(data.warning)} (${fmt(r.checked_in_at)})${who}` : `⛔ ${esc(data.error)}${who}`;
+    if (navigator.vibrate) navigator.vibrate(ok && !data.warning ? 80 : [60, 60, 60]);
+    loadAll();
+  }
+  $('manual').onsubmit = (e) => { e.preventDefault(); checkin($('manualCode').value); $('manualCode').value = ''; };
+
+  let stream = null, raf = null, lastCode = '', lastAt = 0;
+  const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  function stopCam() { if (stream) stream.getTracks().forEach((t) => t.stop()); stream = null; cancelAnimationFrame(raf); $('scanbox').classList.remove('on'); $('camBtn').textContent = '📷 Escanear QR com a câmera'; }
+  $('camBtn').onclick = async () => {
+    if (stream) return stopCam();
+    try { stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }); }
+    catch { return alert('Não foi possível abrir a câmera. Use o código manual.'); }
+    const v = $('video'); v.srcObject = stream; await v.play();
+    $('scanbox').classList.add('on'); $('camBtn').textContent = 'Parar câmera';
+    const tick = () => {
+      if (!stream) return;
+      if (v.readyState === v.HAVE_ENOUGH_DATA) {
+        canvas.width = v.videoWidth; canvas.height = v.videoHeight; ctx.drawImage(v, 0, 0);
+        const qr = jsQR(ctx.getImageData(0, 0, canvas.width, canvas.height).data, canvas.width, canvas.height, { inversionAttempts: 'dontInvert' });
+        const now = Date.now();
+        if (qr && qr.data && (qr.data !== lastCode || now - lastAt > 4000)) { lastCode = qr.data; lastAt = now; checkin(qr.data); }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    tick();
+  };
+
+  // ---- CSV ----
+  $('csv').onclick = () => {
+    const cols = ['code', 'name', 'email', 'phone', 'seats', 'status', 'how_heard', 'created_at', 'checked_in_at', 'cancelled_at'];
+    const q = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const csv = '﻿' + [cols.join(';'), ...regs.map((r) => cols.map((c) => q(r[c])).join(';'))].join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'inscricoes-luciano-manga.csv'; a.click();
+  };
+
+  setInterval(() => { if (KEY && !document.hidden) loadAll().catch(() => {}); }, 20000);
+  if (KEY) loadAll().catch(() => {});
+})();
+</script>
+</body>
+</html>

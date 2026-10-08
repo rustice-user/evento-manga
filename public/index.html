@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luciano Manga em Barcelona · Inscrição</title>
+<meta name="description" content="3 de janeiro, 17h às 19h, Vineyard Church Barcelona. Entrada gratuita com inscrição — Palavra, comunhão e uma conversa com Luciano Manga, ex-vocalista da Oficina G3.">
+<meta property="og:title" content="Luciano Manga em Barcelona · 3 de janeiro">
+<meta property="og:description" content="Entrada gratuita, vagas limitadas. Garanta a sua!">
+<meta property="og:image" content="%POSTER_URL%">
+<meta name="theme-color" content="#0a1626">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a1626; --bg2:#0f2036; --card:#13263f; --line:#24405f;
+    --ink:#f4f7fb; --muted:#a9b8cc; --yellow:#ffd21f; --yellow-ink:#1a1400;
+    --green:#22c07a; --red:#ff6b6b; --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;
+    background-image:radial-gradient(1200px 600px at 80% -10%,#1d3f63 0,transparent 60%),radial-gradient(900px 500px at -10% 30%,#10314a 0,transparent 60%);
+    background-attachment:fixed}
+  a{color:var(--yellow)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  header.top{display:flex;align-items:center;gap:10px;padding:18px 0;font-weight:700;letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+  header.top .v{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--ink);color:var(--bg);font-family:Anton;font-size:20px;letter-spacing:0}
+
+  .hero{display:grid;grid-template-columns:1fr;gap:28px;align-items:center;padding:8px 0 40px}
+  @media(min-width:860px){.hero{grid-template-columns:minmax(0,420px) 1fr;gap:48px}}
+  .poster{width:100%;border-radius:var(--radius);box-shadow:0 30px 60px -20px #000c,0 0 0 1px #ffffff14;display:block}
+  .quote{font-family:Caveat;font-size:28px;line-height:1.1;color:#e9eef6;margin:0 0 6px;transform:rotate(-2deg);display:inline-block}
+  .quote:after{content:"";display:block;height:5px;margin-top:6px;background:var(--yellow);border-radius:4px;width:70%;transform:skewX(-20deg)}
+  h1{margin:10px 0 0;line-height:.9}
+  h1 .a{display:block;font-family:Anton;font-size:clamp(56px,11vw,104px);letter-spacing:.01em}
+  h1 .b{display:block;font-family:"Permanent Marker";color:var(--yellow);font-size:clamp(54px,10.5vw,100px);transform:rotate(-3deg);margin-top:-4px}
+  .roles{margin:14px 0 0;color:var(--muted);font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+  .roles span{color:var(--yellow);margin:0 6px}
+  .facts{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+  .fact{background:var(--yellow);color:var(--yellow-ink);font-weight:700;padding:10px 14px;border-radius:12px;display:flex;align-items:center;gap:8px;font-size:15px}
+  .fact.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+  .fact svg{width:18px;height:18px;flex:none}
+
+  .meter{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:6px 0 20px;max-width:460px}
+  .meter .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;color:var(--muted)}
+  .meter strong{font-family:Anton;font-size:28px;color:var(--ink);letter-spacing:.02em;font-weight:400}
+  .bar{height:10px;border-radius:99px;background:#0a1626;overflow:hidden;margin-top:10px}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--yellow),#ffb11f);border-radius:99px;transition:width .8s ease}
+
+  .btn{appearance:none;border:0;cursor:pointer;font:inherit;font-weight:700;border-radius:12px;padding:14px 20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:transform .08s ease,filter .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{background:var(--yellow);color:var(--yellow-ink);font-size:17px}
+  .btn.primary:hover{filter:brightness(1.06)}
+  .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+  .btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--muted)}
+  .btn[disabled]{opacity:.6;cursor:progress}
+
+  section.block{padding:36px 0;border-top:1px solid #ffffff10}
+  h2{font-family:Anton;font-weight:400;font-size:clamp(30px,5vw,42px);letter-spacing:.02em;margin:0 0 14px;text-transform:uppercase}
+  h2 em{font-style:normal;color:var(--yellow)}
+  .grid2{display:grid;grid-template-columns:1fr;gap:28px}
+  @media(min-width:860px){.grid2{grid-template-columns:1.1fr .9fr;gap:48px}}
+  .lead{font-size:18px;color:#dfe7f2;margin:0 0 14px}
+  .muted{color:var(--muted)}
+  .cards{display:grid;gap:14px}
+  .mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .mini b{display:block;margin-bottom:4px}
+  .mini p{margin:0;color:var(--muted);font-size:15px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 30px 60px -30px #000a}
+  form .f{margin-bottom:14px}
+  label{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
+  label small{font-weight:400;color:var(--muted)}
+  input,select{width:100%;font:inherit;color:var(--ink);background:#0b1a2d;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;outline:none}
+  input:focus,select:focus{border-color:var(--yellow);box-shadow:0 0 0 3px #ffd21f33}
+  .seats{display:flex;gap:8px;flex-wrap:wrap}
+  .seats button{flex:1 0 52px;min-height:48px;border-radius:12px;border:1.5px solid var(--line);background:#0b1a2d;color:var(--ink);font:inherit;font-weight:700;font-size:18px;cursor:pointer}
+  .seats button[aria-pressed="true"]{background:var(--yellow);color:var(--yellow-ink);border-color:var(--yellow)}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);font-weight:400}
+  .check input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--yellow)}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .msg{border-radius:12px;padding:12px 14px;margin:0 0 14px;font-size:15px;display:none}
+  .msg.show{display:block}
+  .msg.err{background:#ff6b6b1f;border:1px solid #ff6b6b66;color:#ffd0d0}
+  .msg.info{background:#ffd21f1a;border:1px solid #ffd21f66;color:#fff1b8}
+  .row2{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:560px){.row2{grid-template-columns:1fr 1fr}}
+  .link{background:none;border:0;color:var(--yellow);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+
+  /* ingresso */
+  .ticket{position:relative;background:linear-gradient(160deg,#fff 0,#f6f1de 100%);color:#0a1626;border-radius:var(--radius);overflow:hidden;max-width:420px;margin:0 auto;box-shadow:0 30px 60px -20px #000c}
+  .ticket .head{background:var(--bg);color:var(--ink);padding:18px 20px 16px;border-bottom:4px solid var(--yellow)}
+  .ticket .head small{letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--muted);font-weight:700}
+  .ticket .head .t{font-family:Anton;font-size:30px;line-height:1;margin-top:4px}
+  .ticket .head .t span{font-family:"Permanent Marker";color:var(--yellow)}
+  .ticket .body{padding:18px 20px 8px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+  .ticket .who{font-weight:700;font-size:20px;line-height:1.2}
+  .ticket .meta{font-size:14px;color:#3a4a5e;margin-top:6px}
+  .ticket .qr{width:132px;height:132px;background:#fff;border-radius:10px;padding:6px}
+  .ticket .qr svg,.ticket .qr img{width:100%;height:100%;display:block}
+  .ticket .perf{border-top:2px dashed #0a162633;margin:10px 0 0;position:relative}
+  .ticket .perf:before,.ticket .perf:after{content:"";position:absolute;top:-12px;width:22px;height:22px;border-radius:50%;background:var(--bg)}
+  .ticket .perf:before{left:-11px}.ticket .perf:after{right:-11px}
+  .ticket .foot{padding:14px 20px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .code{font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:26px;letter-spacing:.18em}
+  .badge{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:99px}
+  .badge.ok{background:#22c07a22;color:#0d7a48}
+  .badge.wait{background:#ffd21f55;color:#6b5200}
+  .badge.no{background:#ff6b6b33;color:#a12a2a}
+  .badge.in{background:#0a1626;color:var(--yellow)}
+  .tactions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px auto 0;max-width:420px}
+  .tactions .btn{flex:1 1 180px}
+  .note{max-width:420px;margin:14px auto 0;text-align:center;color:var(--muted);font-size:14px}
+
+  footer{padding:34px 0 48px;text-align:center;border-top:1px solid #ffffff10}
+  footer .big{font-family:Anton;font-size:28px;letter-spacing:.08em}
+  footer .big span{color:var(--yellow);margin:0 10px}
+  .hidden{display:none!important}
+  @media print{body{background:#fff}.no-print{display:none!important}.ticket{box-shadow:none;border:1px solid #ccc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top no-print"><span class="v">V</span> Vineyard Church Barcelona</header>
+
+  <!-- ========= LANDING ========= -->
+  <main id="landing">
+    <div class="hero">
+      <img class="poster" src="%POSTER_URL%" onerror="this.remove()" alt="Cartaz: Luciano Manga, ex-vocalista da Oficina G3, 3 de janeiro, 17h às 19h, Vineyard Church Barcelona" width="760" height="1140">
+      <div>
+        <p class="quote">“Música, Palavra e uma vida em comunhão.”</p>
+        <h1><span class="a">LUCIANO</span><span class="b">MANGA</span></h1>
+        <p class="roles">Ex-vocalista da Oficina G3<span>•</span>Pastor<span>•</span>Escritor</p>
+        <div class="facts">
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Sáb, 3 de janeiro</div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>17h às 19h</div>
+          <a class="fact alt" href="https://www.google.com/maps/search/?api=1&query=Vineyard+Church+Barcelona" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Vineyard Church Barcelona</a>
+        </div>
+        <div class="meter" id="meter" aria-live="polite">
+          <div class="row"><span>Entrada <b style="color:var(--ink)">gratuita</b> · vagas limitadas</span><span id="meterOpen"></span></div>
+          <div class="row" style="margin-top:4px"><strong id="meterNum">…</strong><span id="meterCap"></span></div>
+          <div class="bar"><i id="meterBar"></i></div>
+        </div>
+        <a class="btn primary" href="#inscricao">Garantir minha entrada →</a>
+      </div>
+    </div>
+
+    <section class="block">
+      <div class="grid2">
+        <div>
+          <h2>Uma tarde de <em>Palavra</em> e <em>comunhão</em></h2>
+          <p class="lead">Para quem, em algum momento da vida, ouviu, acompanhou ou foi marcado pela música da Oficina G3. 🎸🇧🇷</p>
+          <p>Um encontro simples e próximo, com Palavra, comunhão e uma conversa muito especial com o Manga, relembrando um pouco de sua história na música, na igreja e na caminhada com Deus.</p>
+          <p>O Manga também fez parte do movimento Vineyard por 25 anos — vai ser muito especial poder ouvi-lo e receber essa palavra aqui em Barcelona.</p>
+          <p class="muted">A entrada é gratuita, mas o espaço é limitado: por isso pedimos que cada pessoa faça sua inscrição e apresente o ingresso (QR) na entrada.</p>
+        </div>
+        <div class="cards">
+          <div class="mini"><b>📖 Livro novo</b><p><i>A Secreta Melodia do Invisível</i> — sobre meditação e a dimensão do sagrado.</p></div>
+          <div class="mini"><b>👕 Camisetas</b><p>Sabe a camiseta de Romanos? O Manga vai trazer camisetas bem legais para vender.</p></div>
+          <div class="mini"><b>💬 Encaminhe!</b><p>Conhece alguém que curtiu a Oficina G3? Mande este link — quanto mais gente souber, melhor.</p>
+            <p style="margin-top:10px"><a class="btn ghost" id="shareBtn" href="#" style="padding:10px 14px;font-size:14px">Compartilhar no WhatsApp</a></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="inscricao">
+      <div class="grid2">
+        <div>
+          <h2>Inscrição <em>gratuita</em></h2>
+          <p class="lead">Leva menos de um minuto. Você recebe na hora um ingresso com QR code para mostrar na entrada.</p>
+          <p class="muted">Vai com a família ou amigos? Escolha quantos lugares quer reservar. Se as vagas acabarem, você pode entrar na lista de espera.</p>
+          <p class="muted">Já se inscreveu e perdeu o ingresso? <button class="link" id="openLookup" type="button">Recuperar meu ingresso</button></p>
+        </div>
+        <div class="card">
+          <form id="regForm" novalidate>
+            <div class="msg err" id="formErr" role="alert"></div>
+            <div class="f"><label for="name">Nome completo</label><input id="name" name="name" autocomplete="name" required maxlength="120"></div>
+            <div class="row2">
+              <div class="f"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160"></div>
+              <div class="f"><label for="phone">WhatsApp <small>(opcional)</small></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="+34 …"></div>
+            </div>
+            <div class="f"><label>Quantos lugares? <small>(incluindo você)</small></label><div class="seats" id="seats" role="group" aria-label="Número de lugares"></div></div>
+            <div class="f"><label for="how">Como ficou sabendo? <small>(opcional)</small></label>
+              <select id="how" name="how_heard"><option value="">—</option><option>WhatsApp</option><option>Instagram</option><option>Amigos / família</option><option>Vineyard Barcelona</option><option>Outra igreja</option><option>Outro</option></select></div>
+            <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="f"><label class="check"><input type="checkbox" id="consent" required><span>Autorizo o uso dos meus dados apenas para a organização deste evento (controle de entrada e avisos sobre o encontro). Eles não serão compartilhados.</span></label></div>
+            <button class="btn primary" style="width:100%" id="submitBtn" type="submit">Confirmar inscrição</button>
+          </form>
+
+          <form id="lookupForm" class="hidden" novalidate>
+            <div class="msg err" id="lookupErr" role="alert"></div>
+            <p style="margin-top:0"><b>Recuperar ingresso</b></p>
+            <div class="f"><label for="lname">Primeiro nome</label><input id="lname" required></div>
+            <div class="f"><label for="lemail">E-mail usado na inscrição</label><input id="lemail" type="email" required></div>
+            <button class="btn primary" style="width:100%" type="submit">Buscar</button>
+            <p style="text-align:center;margin:12px 0 0"><button class="link" type="button" id="closeLookup">Voltar para a inscrição</button></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========= TICKET ========= -->
+  <main id="ticketView" class="hidden" style="padding:10px 0 40px">
+    <div class="msg info" id="ticketMsg" style="max-width:420px;margin:0 auto 16px"></div>
+    <div class="ticket" id="ticket">
+      <div class="head"><small>Vineyard Church Barcelona · Ingresso</small><div class="t">LUCIANO <span>MANGA</span></div></div>
+      <div class="body">
+        <div>
+          <div class="who" id="tName"></div>
+          <div class="meta" id="tSeats"></div>
+          <div class="meta">Sáb, 3 de janeiro · 17h às 19h</div>
+          <div style="margin-top:10px" id="tBadge"></div>
+        </div>
+        <div class="qr" id="tQr" aria-label="QR code do ingresso"></div>
+      </div>
+      <div class="perf"></div>
+      <div class="foot"><div><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#3a4a5e;font-weight:700">Código</div><div class="code" id="tCode"></div></div>
+        <div style="text-align:right;font-size:13px;color:#3a4a5e">Entrada<br><b>gratuita</b></div></div>
+    </div>
+    <p class="note" id="tNote">Faça uma captura de tela ou salve este link. Mostre o QR na entrada.</p>
+    <div class="tactions no-print">
+      <a class="btn primary" id="icsBtn" href="#" download="luciano-manga-barcelona.ics">Adicionar ao calendário</a>
+      <a class="btn ghost" id="mapBtn" href="https://www.google.com/maps/search/?api=1&query=Vineyard+Church+Barcelona" target="_blank" rel="noopener">Como chegar</a>
+      <a class="btn ghost" id="shareTicket" href="#">Convidar amigos</a>
+      <button class="btn ghost" id="printBtn" type="button">Imprimir</button>
+    </div>
+    <p class="note no-print">Não vai poder ir? <button class="link" id="cancelBtn" type="button">Cancelar minha inscrição</button> e libere o lugar para outra pessoa.<br><a href="/" id="backHome">Voltar à página do evento</a></p>
+  </main>
+
+  <footer class="no-print"><div class="big">PALAVRA<span>•</span>COMUNHÃO</div><p class="muted" style="margin:8px 0 0">❤️🇧🇷 Vineyard Church Barcelona</p></footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(() => {
+  const base = '/';
+  const API = '/api';
+  const $ = (id) => document.getElementById(id);
+  const siteUrl = location.origin + base;
+  let status = null, seats = 1, acceptWaitlist = false;
+
+  const shareText = `Oi! Dia 3 de janeiro, 17h, tem um encontro com Luciano Manga (ex-vocalista da Oficina G3) na Vineyard Church Barcelona. Entrada gratuita, mas precisa se inscrever: ${siteUrl}`;
+  const wa = (t) => 'https://wa.me/?text=' + encodeURIComponent(t);
+  $('shareBtn').href = wa(shareText); $('shareBtn').target = '_blank';
+  $('shareTicket').href = wa(shareText); $('shareTicket').target = '_blank';
+
+  async function api(path, opts = {}) {
+    const res = await fetch(API + path, { headers: { 'Content-Type': 'application/json' }, ...opts });
+    const data = await res.json().catch(() => ({}));
+    return { ok: res.ok, status: res.status, data };
+  }
+
+  // ---- status / medidor ----
+  async function loadStatus() {
+    const { ok, data } = await api('/status');
+    if (!ok) return;
+    status = data;
+    const pct = data.capacity ? Math.min(100, 100 * (data.capacity - data.remaining) / data.capacity) : 100;
+    $('meterBar').style.width = pct + '%';
+    if (!data.open) {
+      $('meterNum').textContent = 'Inscrições encerradas';
+      $('meterCap').textContent = '';
+    } else if (data.remaining > 0) {
+      $('meterNum').textContent = data.remaining + (data.remaining === 1 ? ' lugar disponível' : ' lugares disponíveis');
+      $('meterCap').textContent = 'de ' + data.capacity;
+    } else {
+      $('meterNum').textContent = 'Lotado';
+      $('meterCap').textContent = data.waitlist_enabled ? 'lista de espera aberta' : '';
+    }
+    renderSeats();
+    $('submitBtn').disabled = !data.open;
+    if (!data.open) $('submitBtn').textContent = 'Inscrições encerradas';
+    else if (data.remaining <= 0 && data.waitlist_enabled) $('submitBtn').textContent = 'Entrar na lista de espera';
+  }
+
+  function renderSeats() {
+    const max = status ? status.max_per_registration : 4;
+    if (seats > max) seats = max;
+    const box = $('seats'); box.innerHTML = '';
+    for (let i = 1; i <= max; i++) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.textContent = i; b.setAttribute('aria-pressed', String(i === seats));
+      b.onclick = () => { seats = i; acceptWaitlist = false; renderSeats(); };
+      box.appendChild(b);
+    }
+  }
+
+  // ---- inscrição ----
+  function showErr(el, text) { el.textContent = text; el.classList.toggle('show', !!text); }
+
+  $('regForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    showErr($('formErr'), '');
+    const payload = {
+      name: f.name.value, email: f.email.value, phone: f.phone.value, how_heard: f.how_heard.value,
+      seats, consent: $('consent').checked, website: f.website.value,
+      accept_waitlist: acceptWaitlist || (status && status.remaining <= 0 && status.waitlist_enabled),
+    };
+    if (payload.name.trim().length < 2) return showErr($('formErr'), 'Informe seu nome.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(payload.email.trim())) return showErr($('formErr'), 'Informe um e-mail válido.');
+    if (!payload.consent) return showErr($('formErr'), 'Marque a autorização de uso dos dados para continuar.');
+    const btn = $('submitBtn'); btn.disabled = true; const old = btn.textContent; btn.textContent = 'Enviando…';
+    const { ok, data } = await api('/register', { method: 'POST', body: JSON.stringify(payload) }).catch(() => ({ ok: false, data: { error: 'Sem conexão. Tente de novo.' } }));
+    btn.disabled = false; btn.textContent = old;
+    if (ok && data.ticket) {
+      openTicket(data.ticket, data.already ? 'Você já estava inscrito(a) com este e-mail — aqui está seu ingresso.' : null);
+      return;
+    }
+    if (data.full && data.waitlist_enabled) {
+      acceptWaitlist = true;
+      btn.textContent = 'Entrar na lista de espera';
+    }
+    showErr($('formErr'), data.error || 'Algo deu errado. Tente de novo.');
+    loadStatus();
+  });
+
+  // ---- recuperar ----
+  $('openLookup').onclick = () => { $('regForm').classList.add('hidden'); $('lookupForm').classList.remove('hidden'); $('inscricao').scrollIntoView({ behavior: 'smooth' }); };
+  $('closeLookup').onclick = () => { $('lookupForm').classList.add('hidden'); $('regForm').classList.remove('hidden'); };
+  $('lookupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { ok, data } = await api('/lookup', { method: 'POST', body: JSON.stringify({ name: $('lname').value, email: $('lemail').value }) });
+    if (ok) openTicket(data.ticket); else showErr($('lookupErr'), data.error || 'Não encontrado.');
+  });
+
+  // ---- ingresso ----
+  const ticketUrl = (code) => siteUrl + 't/' + code;
+
+  function openTicket(t, msg) {
+    try { localStorage.setItem('manga_ticket', t.code); } catch {}
+    if (!location.pathname.endsWith('/t/' + t.code)) history.pushState({}, '', base + 't/' + t.code);
+    renderTicket(t, msg);
+  }
+
+  function renderTicket(t, msg) {
+    $('landing').classList.add('hidden'); $('ticketView').classList.remove('hidden');
+    window.scrollTo(0, 0);
+    $('tName').textContent = t.name;
+    $('tSeats').textContent = t.seats === 1 ? '1 lugar' : t.seats + ' lugares';
+    $('tCode').textContent = t.code;
+    const badges = { confirmed: ['ok', 'Confirmado'], waitlist: ['wait', 'Lista de espera'], cancelled: ['no', 'Cancelado'] };
+    let [cls, label] = badges[t.status] || ['', t.status];
+    if (t.checked_in) { cls = 'in'; label = 'Check-in feito ✓'; }
+    $('tBadge').innerHTML = `<span class="badge ${cls}">${label}</span>`;
+    const qr = qrcode(0, 'M'); qr.addData(ticketUrl(t.code)); qr.make();
+    $('tQr').innerHTML = qr.createSvgTag({ margin: 0, scalable: true });
+    $('tQr').style.opacity = t.status === 'confirmed' ? 1 : .25;
+    $('tNote').textContent = {
+      confirmed: 'Faça uma captura de tela ou salve este link. Mostre o QR na entrada.',
+      waitlist: 'Você está na lista de espera. Se abrir vaga, a equipe entra em contato — e este ingresso passa a aparecer como Confirmado.',
+      cancelled: 'Esta inscrição foi cancelada.',
+    }[t.status] || '';
+    $('cancelBtn').parentElement.classList.toggle('hidden', t.status === 'cancelled' || t.checked_in);
+    $('cancelBtn').onclick = async () => {
+      if (!confirm('Cancelar sua inscrição e liberar o lugar?')) return;
+      const { ok, data } = await api('/ticket/' + t.code + '/cancel', { method: 'POST' });
+      if (ok) { try { localStorage.removeItem('manga_ticket'); } catch {} renderTicket(data.ticket, 'Inscrição cancelada. Obrigado por liberar o lugar!'); }
+      else alert(data.error || 'Não foi possível cancelar.');
+    };
+    const m = $('ticketMsg'); m.textContent = msg || ''; m.classList.toggle('show', !!msg);
+    $('icsBtn').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics(t));
+  }
+
+  function ics(t) {
+    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Vineyard Barcelona//Luciano Manga//PT', 'BEGIN:VEVENT',
+      'UID:manga-' + t.code + '@vineyard-bcn', 'DTSTAMP:20261008T000000Z',
+      'DTSTART:20270103T160000Z', 'DTEND:20270103T180000Z',
+      'SUMMARY:Luciano Manga em Barcelona', 'LOCATION:Vineyard Church Barcelona',
+      'DESCRIPTION:Palavra e comunhão com Luciano Manga. Ingresso ' + t.code + ' – ' + ticketUrl(t.code),
+      'BEGIN:VALARM', 'TRIGGER:-PT3H', 'ACTION:DISPLAY', 'DESCRIPTION:Luciano Manga hoje às 17h', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  }
+
+  $('printBtn').onclick = () => window.print();
+  $('backHome').onclick = (e) => { e.preventDefault(); history.pushState({}, '', base); route(); };
+
+  async function route() {
+    const m = location.pathname.match(/\/t\/([A-Za-z0-9]+)\/?$/);
+    if (m) {
+      const { ok, data } = await api('/ticket/' + m[1]);
+      if (ok) return renderTicket(data.ticket);
+      history.replaceState({}, '', base);
+    }
+    $('ticketView').classList.add('hidden'); $('landing').classList.remove('hidden');
+    loadStatus();
+  }
+  window.addEventListener('popstate', route);
+  renderSeats();
+  route();
+})();
+</script>
+</body>
+</html>

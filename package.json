@@ -1,0 +1,13 @@
+{
+  "name": "evento-luciano-manga",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Inscrições gratuitas e controle de aforo — Luciano Manga na Vineyard Church Barcelona",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
