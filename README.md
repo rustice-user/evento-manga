@@ -3,6 +3,11 @@
 App de inscrição gratuita com controle de aforo para o encontro com **Luciano Manga**
 (ex-vocalista da Oficina G3) na **Vineyard Church Barcelona** — domingo, 3 de janeiro (2027), 17h às 19h.
 
+## Links
+
+- Página pública: https://br-still-boat-b26dg009-eventomanga.compute.c-6.eu-central-1.aws.neon.tech/
+- Painel da equipe: https://br-still-boat-b26dg009-eventomanga.compute.c-6.eu-central-1.aws.neon.tech/admin
+
 ## O que faz
 
 **Página pública (`/`)**
@@ -36,7 +41,7 @@ App de inscrição gratuita com controle de aforo para o encontro com **Luciano 
 | --- | --- |
 | `APP_DATABASE_URL` | connection string do usuário `evento_manga_web` |
 | `ADMIN_KEY` | chave de acesso do painel `/admin` |
-| `POSTER_URL` | URL pública da imagem do cartaz (`public/poster.jpg`) |
+| `POSTER_URL` | URL pública da imagem do cartaz: `https://raw.githubusercontent.com/rustice-user/evento-manga/main/public/poster.jpg` |
 
 ## Deploy
 
